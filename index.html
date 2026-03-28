@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z5-WeChat-SOP - 微信公众号内容生产标准作业流程</title>
+    <meta name="description" content="4 代理流水线 + 智能交互：采集 → 编辑 → 审核 → 发布">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #07C160;
+            --primary-dark: #06AD56;
+            --secondary: #6366f1;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--dark); background: var(--light); }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 120px 20px 80px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 20px; }
+        .hero p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+        .hero .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .badge { background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 20px; font-size: 0.875rem; }
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .btn-primary { background: white; color: var(--primary); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .btn-outline { border: 2px solid white; color: white; }
+        .btn-outline:hover { background: white; color: var(--primary); }
+
+        /* Pipeline Section */
+        .pipeline { padding: 80px 20px; background: white; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 60px; }
+        .pipeline-diagram { max-width: 900px; margin: 0 auto; }
+        .pipeline-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+        .step { text-align: center; padding: 30px; background: var(--light); border-radius: 12px; position: relative; }
+        .step-icon { font-size: 3rem; margin-bottom: 15px; }
+        .step h3 { color: var(--primary); margin-bottom: 10px; }
+        .step ul { list-style: none; text-align: left; }
+        .step li { padding: 5px 0; color: var(--gray); font-size: 0.9rem; }
+        .step li::before { content: "✓ "; color: var(--primary); }
+        .arrow { text-align: center; font-size: 2rem; color: var(--primary); padding: 20px 0; }
+
+        /* Features Section */
+        .features { padding: 80px 20px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .feature-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .feature-card h3 { color: var(--secondary); margin-bottom: 15px; }
+        .feature-card ul { list-style: none; }
+        .feature-card li { padding: 8px 0; color: var(--gray); }
+        .feature-card li::before { content: "→ "; color: var(--secondary); }
+
+        /* Audit Section */
+        .audit { padding: 80px 20px; background: white; }
+        .audit-table { max-width: 800px; margin: 0 auto; border-collapse: collapse; width: 100%; }
+        .audit-table th, .audit-table td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .audit-table th { background: var(--light); font-weight: 600; }
+        .grade-s { color: #10b981; font-weight: 600; }
+        .grade-a { color: #3b82f6; font-weight: 600; }
+        .grade-b { color: #f59e0b; font-weight: 600; }
+        .grade-c { color: #ef4444; font-weight: 600; }
+
+        /* Code Section */
+        .code-section { padding: 80px 20px; background: var(--dark); color: white; }
+        .code-block { background: #0f172a; padding: 30px; border-radius: 12px; overflow-x: auto; max-width: 800px; margin: 0 auto; font-family: 'Monaco', 'Consolas', monospace; font-size: 0.9rem; }
+        .code-block code { color: #e2e8f0; }
+        .comment { color: #64748b; }
+        .command { color: #07C160; }
+
+        /* Footer */
+        footer { padding: 40px 20px; text-align: center; background: var(--light); color: var(--gray); }
+        footer a { color: var(--primary); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .pipeline-steps { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="badges">
+            <span class="badge">🟢 v1.0.0</span>
+            <span class="badge">📝 WeChat</span>
+            <span class="badge">🤖 AI-Powered</span>
+            <span class="badge">📊 3-Layer Audit</span>
+        </div>
+        <h1>Z5-WeChat-SOP</h1>
+        <p>微信公众号内容生产标准作业流程<br>4 代理流水线 + 智能交互：采集 → 编辑 → 审核 → 发布</p>
+        <div class="cta-buttons">
+            <a href="https://github.com/your-org/Z5-WeChat-SOP" class="btn btn-primary">🚀 立即开始</a>
+            <a href="#pipeline" class="btn btn-outline">📋 了解流程</a>
+        </div>
+    </section>
+
+    <!-- Pipeline Section -->
+    <section id="pipeline" class="pipeline">
+        <h2 class="section-title">🎯 4 代理流水线</h2>
+        <div class="pipeline-diagram">
+            <div class="pipeline-steps">
+                <div class="step">
+                    <div class="step-icon">🔍</div>
+                    <h3>采集代理</h3>
+                    <ul>
+                        <li>热点抓取</li>
+                        <li>选题生成（10 个）</li>
+                        <li>SEO 评分</li>
+                    </ul>
+                </div>
+                <div class="step">
+                    <div class="step-icon">✍️</div>
+                    <h3>编辑代理</h3>
+                    <ul>
+                        <li>框架选择（5 套）</li>
+                        <li>文章撰写（1500-3500 字）</li>
+                        <li>视觉 AI 配图</li>
+                        <li>SEO 优化</li>
+                    </ul>
+                </div>
+                <div class="step">
+                    <div class="step-icon">✅</div>
+                    <h3>审核代理</h3>
+                    <ul>
+                        <li>数据校验（A/B/C/D）</li>
+                        <li>来源核实（S/A/B/C/D）</li>
+                        <li>内容审核</li>
+                    </ul>
+                </div>
+                <div class="step">
+                    <div class="step-icon">📤</div>
+                    <h3>发布代理</h3>
+                    <ul>
+                        <li>排版（4 套主题）</li>
+                        <li>图片上传</li>
+                        <li>推送草稿箱</li>
+                        <li>数据归档</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">✨ 核心特性</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🤖 智能交互</h3>
+                <ul>
+                    <li>默认全自动模式</li>
+                    <li>交互模式可选</li>
+                    <li>关键节点确认</li>
+                    <li>降级方案完善</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>🔍 3 层审核</h3>
+                <ul>
+                    <li>数据可查证率≥80%</li>
+                    <li>来源权威性分级</li>
+                    <li>内容合规检查</li>
+                    <li>综合评分≥90 分</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>🎨 视觉 AI</h3>
+                <ul>
+                    <li>封面自动生成</li>
+                    <li>内文配图 3-6 张</li>
+                    <li>信息图/数据图</li>
+                    <li>漫画/插画风格</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>📊 效果复盘</h3>
+                <ul>
+                    <li>阅读量分析</li>
+                    <li>分享率统计</li>
+                    <li>完读率追踪</li>
+                    <li>优化建议生成</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>🔄 学习机制</h3>
+                <ul>
+                    <li>人工修改学习</li>
+                    <li>Playbook 更新</li>
+                    <li>风格偏好固化</li>
+                    <li>持续优化迭代</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>📁 客户配置</h3>
+                <ul>
+                    <li>风格配置（style.yaml）</li>
+                    <li>发布历史（history.yaml）</li>
+                    <li>语料库（corpus/）</li>
+                    <li>风格指南（playbook.md）</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audit Section -->
+    <section class="audit">
+        <h2 class="section-title">📊 审核标准</h2>
+        <table class="audit-table">
+            <thead>
+                <tr>
+                    <th>等级</th>
+                    <th>数据可查证率</th>
+                    <th>来源权威性</th>
+                    <th>处理方式</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="grade-s">S 级</td>
+                    <td>100%</td>
+                    <td>官方文件/权威媒体</td>
+                    <td>直接发布</td>
+                </tr>
+                <tr>
+                    <td class="grade-a">A 级</td>
+                    <td>≥80%</td>
+                    <td>主流媒体/行业报告</td>
+                    <td>直接发布</td>
+                </tr>
+                <tr>
+                    <td class="grade-b">B 级</td>
+                    <td>≥60%</td>
+                    <td>一般媒体/自媒体</td>
+                    <td>修改后发布</td>
+                </tr>
+                <tr>
+                    <td class="grade-c">C 级</td>
+                    <td>&lt;60%</td>
+                    <td>不可靠来源</td>
+                    <td>重写或弃用</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Code Section -->
+    <section class="code-section">
+        <h2 class="section-title">🚀 快速开始</h2>
+        <div class="code-block">
+            <code>
+<span class="comment"># 1. 克隆仓库</span>
+<span class="command">git clone</span> https://github.com/your-org/Z5-WeChat-SOP.git
+<span class="command">cd</span> Z5-WeChat-SOP
+
+<span class="comment"># 2. 安装依赖</span>
+<span class="command">pip install</span> -r requirements.txt
+<span class="command">npm install</span> -g @wenyan-md/cli
+
+<span class="comment"># 3. 配置环境变量</span>
+<span class="command">export</span> WECHAT_APP_ID=<span class="comment">"your_app_id"</span>
+<span class="command">export</span> WECHAT_APP_SECRET=<span class="comment">"your_app_secret"</span>
+<span class="command">export</span> BAILIAN_API_KEY=<span class="comment">"your_api_key"</span>
+
+<span class="comment"># 4. 创建客户配置</span>
+<span class="command">cp</span> clients/demo/style.yaml clients/your-client/style.yaml
+
+<span class="comment"># 5. 运行全流程</span>
+<span class="command">python3</span> scripts/main.py --client your-client --mode auto
+            </code>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>🟢 Z5-WeChat-SOP v1.0.0 · MIT License</p>
+        <p><a href="https://github.com/your-org/Z5-WeChat-SOP">GitHub</a> · <a href="https://github.com/your-org/Z5-WeChat-SOP/issues">Issues</a> · <a href="https://github.com/your-org/Z5-WeChat-SOP/blob/main/README.md">文档</a></p>
+    </footer>
+</body>
+</html>

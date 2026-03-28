@@ -1,0 +1,38 @@
+# 客户配置示例 — Demo Client
+# 复制此文件到您的客户目录，并修改配置
+
+name: "示例客户"
+industry: "行业领域（如：体育旅游、科技、教育等）"
+
+# 内容方向
+topics:
+  - "内容方向 1"
+  - "内容方向 2"
+  - "内容方向 3"
+
+# 写作风格
+tone: "专业、客观、有深度"
+voice: "第三人称，客观陈述"
+content_style: "干货 | 数据 | 案例"  # 可选：干货、故事、情绪、热点、测评
+
+# 禁忌内容
+blacklist:
+  words: []  # 禁忌词列表
+  topics: []  # 禁忌话题列表
+
+# 参考账号（用于风格学习）
+reference_accounts:
+  - "参考账号 1"
+  - "参考账号 2"
+
+# 排版主题（professional-clean / tech-modern / warm-editorial / minimal）
+theme: "professional-clean"
+
+# 封面风格描述
+cover_style: "专业简洁，蓝绿色调，突出行业元素"
+
+# 配图风格（信息图 + 数据图 + 漫画插图 / 写实照片）
+illustration_style: "信息图 + 数据图 + 漫画插图"
+
+# 署名
+author: "编辑部"

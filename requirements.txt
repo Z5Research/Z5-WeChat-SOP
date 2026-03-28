@@ -1,0 +1,24 @@
+# Z5-WeChat-SOP 依赖
+
+# HTTP 请求
+requests>=2.28.0
+
+# YAML 处理
+PyYAML>=6.0
+
+# Markdown 处理
+markdown>=3.4.0
+
+# 数据处理
+pandas>=1.5.0
+
+# 图像生成（可选）
+# 使用阿里云百炼 API
+dashscope>=1.0.0
+
+# 测试
+pytest>=7.0.0
+
+# 开发
+black>=22.0.0
+flake8>=5.0.0
